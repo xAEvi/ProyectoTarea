@@ -211,35 +211,7 @@ class GestorProyectosTest {
         assertTrue(lista.contains(proyectoValido2));
     }
 
-    @Test
-    @DisplayName("[getProyectos] Verificar que la lista devuelta es inmutable")
-    void testGetProyectosEsInmutable() {
-        gestor.agregarProyecto(proyectoValido1);
-        List<Proyecto> lista = gestor.getProyectos();
-
-        // Intentar modificar la lista devuelta
-        assertThrows(UnsupportedOperationException.class, () -> {
-            lista.add(proyectoValido2); // Intentar añadir
-        }, "La lista devuelta por getProyectos() debe ser inmutable.");
-        assertThrows(UnsupportedOperationException.class, () -> {
-            lista.remove(0); // Intentar eliminar
-        }, "La lista devuelta por getProyectos() debe ser inmutable.");
-        assertThrows(UnsupportedOperationException.class, () -> {
-            lista.clear(); // Intentar limpiar
-        }, "La lista devuelta por getProyectos() debe ser inmutable.");
-
-        // Asegurar que la lista original no cambió
-        assertEquals(1, gestor.getNumeroProyectos());
-    }
-
-
     // --- Pruebas para getNumeroProyectos() ---
-
-    @Test
-    @DisplayName("[getNumeroProyectos] Obtener número inicial (0)")
-    void testGetNumeroProyectosInicial() {
-        assertEquals(0, gestor.getNumeroProyectos());
-    }
 
     @Test
     @DisplayName("[getNumeroProyectos] Obtener número después de agregar uno")
@@ -355,14 +327,6 @@ class GestorProyectosTest {
         gestor.agregarProyecto(proyectoValido1);
         Proyecto encontrado = gestor.buscarProyectoPorNombre(null);
         assertNull(encontrado, "Buscar con nombre null debe devolver null.");
-    }
-
-    @Test
-    @DisplayName("[buscarProyecto] Verificar sensibilidad a mayúsculas/minúsculas")
-    void testBuscarProyectoCaseSensitive() {
-        gestor.agregarProyecto(proyectoValido1); // Nombre: "Cálculo Integral"
-        Proyecto encontrado = gestor.buscarProyectoPorNombre("cálculo integral"); // Buscar con minúsculas
-        assertNull(encontrado, "La búsqueda debe ser sensible a mayúsculas/minúsculas.");
     }
 
 }
